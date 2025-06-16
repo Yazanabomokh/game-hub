@@ -1,34 +1,73 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import {
+  ActionBar,
+  Button,
+  Checkbox,
+  ClientOnly,
+  CloseButton,
+  IconButton,
+  Portal,
+  Skeleton,
+} from "@chakra-ui/react";
+import {
+  ColorModeButton,
+  DarkMode,
+  LightMode,
+  useColorMode,
+  useColorModeValue,
+} from "@/components/ui/color-mode";
+import { useEffect, useState } from "react";
+import { LuMoon, LuShare, LuSun, LuTrash2 } from "react-icons/lu";
 
 function App() {
-  const [count, setCount] = useState(0)
-
+  const { toggleColorMode, colorMode } = useColorMode();
+  const [checked, setChecked] = useState(false);
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  )
+    <>
+      <ClientOnly fallback={<Skeleton boxSize="8" />}>
+        <IconButton onClick={toggleColorMode} variant="outline" size="sm">
+          {colorMode === "light" ? <LuSun /> : <LuMoon />}
+        </IconButton>
+      </ClientOnly>
+      <br />
+      <br />
+      <Checkbox.Root
+        checked={checked}
+        onCheckedChange={(e) => setChecked(!!e.checked)}
+      >
+        <Checkbox.HiddenInput />
+        <Checkbox.Control />
+        <Checkbox.Label>Show Action bar</Checkbox.Label>
+      </Checkbox.Root>
+
+      <ActionBar.Root
+        open={checked}
+        onOpenChange={(e) => setChecked(e.open)}
+        closeOnInteractOutside={false}
+      >
+        <Portal>
+          <ActionBar.Positioner>
+            <ActionBar.Content>
+              <ActionBar.SelectionTrigger>
+                2 selected
+              </ActionBar.SelectionTrigger>
+              <ActionBar.Separator />
+              <Button variant="outline" size="sm">
+                <LuTrash2 />
+                Delete
+              </Button>
+              <Button variant="outline" size="sm">
+                <LuShare />
+                Share
+              </Button>
+              <ActionBar.CloseTrigger asChild>
+                <CloseButton size="sm" />
+              </ActionBar.CloseTrigger>
+            </ActionBar.Content>
+          </ActionBar.Positioner>
+        </Portal>
+      </ActionBar.Root>
+    </>
+  );
 }
 
-export default App
+export default App;
