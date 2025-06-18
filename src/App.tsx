@@ -16,7 +16,9 @@ function App() {
       <GridItem area="aside" display={{ base: "none", lg: "block" }}>
         Aside
       </GridItem>
-      <GridItem area="main"></GridItem>
+      <GridItem area="main">
+        <GameGrid></GameGrid>
+      </GridItem>
     </Grid>
   );
 }
