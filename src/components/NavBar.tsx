@@ -6,9 +6,7 @@ const NavBar = () => {
     <HStack justify="space-between" padding="10px">
       {" "}
       <Image src={logo} boxSize="60px"></Image>
-      <Text>
-        <ColorModeButton></ColorModeButton>
-      </Text>
+      <ColorModeButton></ColorModeButton>
     </HStack>
   );
 };
