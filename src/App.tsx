@@ -7,11 +7,13 @@ import { Genre } from "./hooks/UseGenres";
 import PlatformSelector from "./components/PlatformSelector";
 import { PlatForm } from "./hooks/useGames";
 
+export interface GameQuery {
+  genre: Genre | null;
+  platform: PlatForm | null;
+}
+
 function App() {
-  const [selectedGenre, setSlectedGenre] = useState<Genre | null>(null);
-  const [selectedPlatform, setSelectedPlatform] = useState<PlatForm | null>(
-    null
-  );
+  const [gameQuery, setGameQuery] = useState<GameQuery>({} as GameQuery);
 
   return (
     <Grid
@@ -33,16 +35,18 @@ function App() {
         paddingX={5}
       >
         <GenreList
-          selectedGenre={selectedGenre}
-          onSeletGenre={(genre) => setSlectedGenre(genre)}
+          selectedGenre={gameQuery.genre}
+          onSeletGenre={(genre) => setGameQuery({ ...gameQuery, genre })}
         ></GenreList>
       </GridItem>
       <GridItem area="main">
         <PlatformSelector
-          selectedPlatform={selectedPlatform}
-          onSelectPlatform={(platform) => setSelectedPlatform(platform)}
+          selectedPlatform={gameQuery.platform}
+          onSelectPlatform={(platform) =>
+            setGameQuery({ ...gameQuery, platform })
+          }
         ></PlatformSelector>
-        <GameGrid selectedPlatform={selectedPlatform} selectedGenre={selectedGenre}></GameGrid>
+        <GameGrid gameQuery={gameQuery}></GameGrid>
       </GridItem>
     </Grid>
   );
