@@ -10,16 +10,16 @@ const GameGrid = () => {
   return (
     <>
       {error && <Text color="red">{error}</Text>}
-      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} gap={10}>
+      <SimpleGrid columns={{ sm: 1, md: 2, lg: 3, xl: 4 }} gap={5}>
         {isLoading &&
           skeletons.map((skeleton) => (
             <GameCardContainer>
               <GameCardSkeleton key={skeleton}></GameCardSkeleton>
             </GameCardContainer>
           ))}
-        {data.map((d) => (
+        {data.map((game) => (
           <GameCardContainer>
-            <GameCard key={d.id} game={d}></GameCard>
+            <GameCard key={game.id} game={game}></GameCard>
           </GameCardContainer>
         ))}
       </SimpleGrid>
