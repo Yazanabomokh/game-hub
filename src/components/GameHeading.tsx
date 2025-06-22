@@ -10,7 +10,7 @@ const GameHeading = ({ gameQuery }: Props) => {
     gameQuery.genre?.name || ""
   } Games`;
   return (
-    <Heading fontSize="4xl" as="h1" marginY={5}>
+    <Heading paddingTop={5} fontSize="4xl" as="h1" marginY={5}>
       {heading}
     </Heading>
   );
